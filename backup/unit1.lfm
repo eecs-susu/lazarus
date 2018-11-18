@@ -1,0 +1,50 @@
+object Form1: TForm1
+  Left = 1518
+  Height = 732
+  Top = 354
+  Width = 711
+  Caption = 'Form1'
+  ClientHeight = 732
+  ClientWidth = 711
+  LCLVersion = '1.8.4.0'
+  object DBGrid1: TDBGrid
+    Left = 359
+    Height = 100
+    Top = 120
+    Width = 200
+    Color = clWindow
+    Columns = <>
+    TabOrder = 0
+  end
+  object PQConnection1: TPQConnection
+    Connected = True
+    LoginPrompt = False
+    DatabaseName = 'dcpibiniub20a4'
+    KeepConnection = False
+    Password = '710a919e393dba8b99e91befe37de9a82a853b5c2c42053d057dc53ebe16a9bb'
+    Transaction = SQLTransaction1
+    UserName = 'mijckvmofaqxjb'
+    HostName = 'ec2-79-125-8-105.eu-west-1.compute.amazonaws.com'
+    left = 40
+    top = 32
+  end
+  object SQLTransaction1: TSQLTransaction
+    Active = False
+    Database = PQConnection1
+    left = 40
+    top = 96
+  end
+  object SQLQuery1: TSQLQuery
+    FieldDefs = <>
+    Database = PQConnection1
+    Transaction = SQLTransaction1
+    Params = <>
+    left = 40
+    top = 160
+  end
+  object DataSource1: TDataSource
+    DataSet = SQLQuery1
+    left = 40
+    top = 224
+  end
+end
