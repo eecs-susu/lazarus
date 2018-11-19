@@ -1,52 +1,176 @@
 object Form1: TForm1
-  Left = 1518
-  Height = 732
-  Top = 354
-  Width = 711
+  Left = 352
+  Height = 757
+  Top = 161
+  Width = 1015
   Caption = 'Form1'
-  ClientHeight = 732
-  ClientWidth = 711
+  ClientHeight = 757
+  ClientWidth = 1015
   LCLVersion = '1.8.4.0'
-  object DBGrid1: TDBGrid
-    Left = 160
-    Height = 100
-    Top = 32
-    Width = 200
-    Color = clWindow
-    Columns = <>
-    DataSource = DataSource1
-    TabOrder = 0
-  end
   object PageControl1: TPageControl
     Left = 160
     Height = 200
     Top = 168
     Width = 520
-    ActivePage = TabSheet1
-    TabIndex = 0
+    ActivePage = TabSheetDrugClasses
+    TabIndex = 2
     TabOrder = 1
     OnChange = PageControl1Change
-    object TabSheet1: TTabSheet
-      Caption = 'TabSheet1'
+    object TabSheetCities: TTabSheet
+      Caption = 'Города'
+      ClientHeight = 172
+      ClientWidth = 512
+      OnContextPopup = TabSheetCitiesContextPopup
+      object DBGrid2: TDBGrid
+        Left = 0
+        Height = 176
+        Top = 0
+        Width = 514
+        Color = clWindow
+        Columns = <>
+        DataSource = DataSource1
+        TabOrder = 0
+      end
     end
-    object TabSheet2: TTabSheet
-      Caption = 'TabSheet2'
+    object TabSheetContracts: TTabSheet
+      Caption = 'Договоры'
     end
-    object TabSheet3: TTabSheet
-      Caption = 'TabSheet3'
+    object TabSheetDrugClasses: TTabSheet
+      Caption = 'Классы препаратов'
+      ClientHeight = 172
+      ClientWidth = 512
+      object DBGrid6: TDBGrid
+        Left = 0
+        Height = 168
+        Top = 0
+        Width = 504
+        Color = clWindow
+        Columns = <>
+        DataSource = DataSource5
+        TabOrder = 0
+      end
     end
-    object TabSheet4: TTabSheet
-      Caption = 'TabSheet4'
+    object TabSheetDrugPrices: TTabSheet
+      Caption = 'Цена препаратов в аптеке'
+      ClientHeight = 172
+      ClientWidth = 512
+      object DBGrid5: TDBGrid
+        Left = 0
+        Height = 168
+        Top = 0
+        Width = 504
+        Color = clWindow
+        Columns = <>
+        DataSource = DataSource4
+        TabOrder = 0
+      end
     end
-    object TabSheet5: TTabSheet
-      Caption = 'TabSheet5'
+    object TabSheetDrugRegistry: TTabSheet
+      Caption = 'Реестр препаратов'
+      ClientHeight = 172
+      ClientWidth = 512
+      object DBGrid4: TDBGrid
+        Left = 0
+        Height = 172
+        Top = 0
+        Width = 504
+        Color = clWindow
+        Columns = <>
+        DataSource = DataSource3
+        TabOrder = 0
+      end
     end
-    object TabSheet6: TTabSheet
-      Caption = 'TabSheet6'
+    object TabSheetDrugs: TTabSheet
+      Caption = 'Препараты'
     end
-    object TabSheet7: TTabSheet
-      Caption = 'TabSheet7'
+    object TabSheetOrders: TTabSheet
+      Caption = 'Заказы'
     end
+    object TabSheetProducts: TTabSheet
+      Caption = 'Отпущенные товары'
+    end
+    object TabSheetPurchases: TTabSheet
+      Caption = 'Покупки'
+    end
+    object TabSheetSuppliers: TTabSheet
+      Caption = 'Поставщики'
+    end
+  end
+  object DBNavigator1: TDBNavigator
+    Left = 159
+    Height = 25
+    Top = 136
+    Width = 241
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 25
+    ClientWidth = 241
+    DataSource = DataSource1
+    Options = []
+    TabOrder = 2
+  end
+  object DBGrid1: TDBGrid
+    Left = 160
+    Height = 168
+    Top = 392
+    Width = 512
+    Color = clWindow
+    Columns = <>
+    DataSource = DataSource1
+    TabOrder = 0
+  end
+  object Memo1: TMemo
+    Left = 736
+    Height = 98
+    Top = 166
+    Width = 158
+    Lines.Strings = (
+      'Memo1'
+    )
+    OnChange = Memo1Change
+    TabOrder = 3
+  end
+  object Run: TButton
+    Left = 904
+    Height = 23
+    Top = 166
+    Width = 51
+    Caption = 'Run'
+    OnClick = RunClick
+    TabOrder = 4
+  end
+  object DBGrid3: TDBGrid
+    Left = 736
+    Height = 172
+    Top = 280
+    Width = 224
+    Color = clWindow
+    Columns = <>
+    DataSource = DataSource2
+    TabOrder = 5
+  end
+  object Button1: TButton
+    Left = 904
+    Height = 25
+    Top = 192
+    Width = 75
+    Caption = 'Save'
+    OnClick = Button1Click
+    TabOrder = 6
+  end
+  object Button2: TButton
+    Left = 904
+    Height = 25
+    Top = 224
+    Width = 75
+    Caption = 'Load'
+    OnClick = Button2Click
+    TabOrder = 7
   end
   object PQConnection1: TPQConnection
     Connected = True
@@ -61,15 +185,31 @@ object Form1: TForm1
     top = 32
   end
   object SQLTransaction1: TSQLTransaction
-    Active = False
+    Active = True
     Database = PQConnection1
     left = 40
     top = 96
   end
   object SQLQuery1: TSQLQuery
-    FieldDefs = <>
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'id'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'name'
+        DataType = ftString
+        Precision = -1
+        Size = 100
+      end>
+    Active = True
     Database = PQConnection1
     Transaction = SQLTransaction1
+    SQL.Strings = (
+      'select * from drug_classes;'
+    )
     Params = <>
     left = 40
     top = 160
@@ -78,5 +218,128 @@ object Form1: TForm1
     DataSet = SQLQuery1
     left = 40
     top = 224
+  end
+  object DataSource2: TDataSource
+    DataSet = SQLQuery2
+    left = 762
+    top = 76
+  end
+  object SQLQuery2: TSQLQuery
+    FieldDefs = <>
+    Database = PQConnection1
+    Transaction = SQLTransaction1
+    Params = <>
+    left = 836
+    top = 88
+  end
+  object SQLQuery3: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'id'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'name'
+        DataType = ftString
+        Precision = -1
+        Size = 100
+      end>
+    Active = True
+    Database = PQConnection1
+    Transaction = SQLTransaction1
+    SQL.Strings = (
+      'select * from drug_registry;'
+    )
+    Params = <>
+    left = 40
+    top = 320
+  end
+  object DataSource3: TDataSource
+    DataSet = SQLQuery3
+    left = 40
+    top = 376
+  end
+  object SQLQuery4: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'id'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'name'
+        DataType = ftString
+        Precision = -1
+        Size = 100
+      end    
+      item
+        Name = 'manufacturer'
+        DataType = ftString
+        Precision = -1
+        Size = 100
+      end    
+      item
+        Name = 'drug_class'
+        DataType = ftInteger
+        Precision = -1
+      end>
+    Active = True
+    Database = PQConnection1
+    Transaction = SQLTransaction1
+    SQL.Strings = (
+      'select * from drug_prices;'
+    )
+    Params = <>
+    left = 40
+    top = 432
+  end
+  object DataSource4: TDataSource
+    DataSet = SQLQuery4
+    left = 40
+    top = 488
+  end
+  object SQLQuery5: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'id'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'drug'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'price'
+        DataType = ftInteger
+        Precision = -1
+      end>
+    Active = True
+    Database = PQConnection1
+    Transaction = SQLTransaction1
+    SQL.Strings = (
+      'select * from drug_classes;'
+    )
+    Params = <>
+    left = 40
+    top = 544
+  end
+  object DataSource5: TDataSource
+    DataSet = SQLQuery5
+    left = 40
+    top = 600
+  end
+  object OpenDialog1: TOpenDialog
+    left = 553
+    top = 75
+  end
+  object SaveDialog1: TSaveDialog
+    left = 471
+    top = 74
   end
 end
